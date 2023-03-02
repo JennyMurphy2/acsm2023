@@ -151,5 +151,6 @@ rep_test = TOSTER::compare_cor(r2 = rho_ori,
             df2 = df_ori,
             r1 = rho_rep,
             df1 = df_rep)
+rep_test
 
 
