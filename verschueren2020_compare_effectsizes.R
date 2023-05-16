@@ -38,3 +38,52 @@ rep_test <- compare_cor(r1 = rho_ori,
                         r2 = rho_rep,
                         df2 = 29)
 rep_test
+
+# Forest ---------
+
+
+## Join datasets -----------------
+plot <-
+  merge(pes_ori_df, pes_rep_df, by = c("eta", "etalow", "etahigh", "study_id"), all = TRUE)
+
+## Plot -----------------------------
+ggplot(plot,
+       aes(
+         y = study_id,
+         x = eta,
+         xmin = etalow,
+         xmax = etahigh
+       )) +
+  geom_point(size = 10) +
+  geom_errorbarh(height = .3) +
+  geom_vline(
+    xintercept = 0,
+    color = 'black',
+    linetype = 'dashed',
+    alpha = .4
+  ) +
+  theme_minimal() +
+  scale_x_continuous(name = "", limits = c(-0.1, 1)) +
+  scale_y_discrete(name = "") +
+  theme(
+    axis.line.x = element_line(color = "black"),
+    axis.text.y = element_text(size = 30),
+    axis.text.x = element_text(size = 30),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    plot.title = element_text(hjust = 0.85),
+    panel.background = element_blank()
+  )
+
+ggsave(
+  "CF_forestplot.png",
+  plot = last_plot(),
+  device = "png",
+  width = NA,
+  height = NA,
+  dpi = 300,
+  limitsize = TRUE,
+  bg = '#ffffff'
+)
